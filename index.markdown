@@ -5,7 +5,6 @@
 layout: page
 title: Project Proposal
 ---
-This is where the project proposal will go.
 
 ## Proposal Video
 
