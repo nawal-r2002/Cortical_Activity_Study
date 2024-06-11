@@ -21,10 +21,4 @@ title: Project Proposal
 ## Gantt Chart
 
 ## Contribution Table
-| Name          | Contribution |
-| :-------------| :------:     |
-| Nawal         |              |
-| Akshaya       |              |
-| Manasa        |              |
-| Jifei (Jemmy) |              |
-| Qi (Kaitlyn)  |              |
+
