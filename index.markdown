@@ -5,7 +5,6 @@
 layout: page
 title: Project Proposal
 ---
-
 ## Proposal Video
 
 ## Introduction
@@ -21,4 +20,3 @@ title: Project Proposal
 ## Gantt Chart
 
 ## Contribution Table
-
