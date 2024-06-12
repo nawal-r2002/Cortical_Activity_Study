@@ -24,7 +24,7 @@ name: Nawal Reza
 url: "https://nawal-r2002.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
-theme: academic-jekyll-theme
+theme: academic
 plugins:
   - jekyll-feed
 
