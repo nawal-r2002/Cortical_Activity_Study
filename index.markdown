@@ -29,4 +29,4 @@ title: Project Proposal
 ## Gantt Chart
 
 ## Contribution Table
-![Proposal Contributions](_images/Proposal_Contributions.jpg)
+<img src="_images/Proposal_Contributions.jpg">
