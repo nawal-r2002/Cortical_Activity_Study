@@ -10,12 +10,32 @@ title: Project Proposal
 
 Temporary Video [Placeholder for Youtube Video]
 ## Introduction
+The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
+
+Recordings from the cortex using electroencephalography (EEG) have revealed a large, negative peak of cortical activity, N1, known as an error assessment signal evoked when external stimuli cause an unexpected error from the upright posture [1]. 
+
+Our dataset includes 6 recordings (6 conditions: 2 directions and 3 magnitudes of balance perturbation) of EEG and EMG per participant, collected from 36 participants (19 healthy old adults, 17 Parkinson’s Disease patients). 
 
 ## Problem Definition
+Our goal for this study is to develop predictive models in order to accurately forecast the characteristic parameters of muscle activity based on the characteristic parameters of the cortical N1 activity. This approach aims to enhance our ability to investigate changes in cortical contributions to balance control in aging and impairment.
 
 ## Proposed Methods
+The EEG and EMG recordings will be preprocessed using a neuromechanical model, which reconstructs the data into several characteristic parameters based on the participants’ center of mass (CoM) kinematics recordings [2]. After processing this model, we will obtain 4 characteristic parameters for the N1 activity, including 3 CoM feedback gains and 1 time latency. Additionally, we will obtain 8 characteristic parameters for muscle activity, including 6 CoM feedback gains and 2 time latencies.
+
+In order to pre-process the characteristic parameters gained from the neuromechanical model, we propose to use techniques which include PCA, and regularized canonical correlation analysis (CCA) to help us identify transformations between input and output that maximize the correlation [3].
+
+For our supervised learning models we plan to apply multiple linear regression, sparse regression, and a feedforward neural network. 
+
+Multiple Linear Regression will allow us to determine the relative contributions of each of the four characteristics in our input data to the output. It will also allow us to determine whether a linear relationship exists within the data. 
+
+Sparse regression attempts to find a set of vectors that optimize the projection from the input to the output. The number of nonzero entries in the vectors is minimized which will allow us to determine which of the input features are most crucial to the output [4]. 
+
+A feed forward neural network will allow us to capture non-linear relationships. We plan on using the scikit learn library’s MLPRegressor module to implement the neural network [5].
 
 ## Potential Results and Discussion
+The metrics we plan to use to evaluate our models include accuracy, precision and recall, mean squared error (MSE), and r2 score. We will also compare our prediction results to a null model and use cross validation to evaluate our machine learning models. 
+
+From our results, we hope to be able to discuss the characteristic factors from N1 activity that have a significant impact on muscle activity and we will be able to improve our understanding of how cortical contributions influence balance control.
 
 ## References
 [1] A. M. Payne, L. H. Ting, and G. Hajcak, “Do sensorimotor perturbations to standing balance elicit an error-related negativity?,” Psychophysiology, vol. 56, no. 7, p. e13359, Mar. 2019, doi: https://doi.org/10.1111/psyp.13359.
