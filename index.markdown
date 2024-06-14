@@ -48,7 +48,8 @@ From our results, we hope to be able to discuss the characteristic factors from 
 
 [5] “sklearn.neural_network.MLPRegressor — scikit-learn 0.21.3 documentation,” Scikit-learn.org, 2010. https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPRegressor.html
 
-## Gantt Chart
 
-## Contribution Table
+## Gantt Chart and Contribution Table
+[Click Here to View Gantt Chart](https://docs.google.com/spreadsheets/d/1LJo-kXLj1V64y5hSA2eHDMiAgkj5vY8V2jxa6E2smUs/edit?gid=0#gid=0)
+
 <img src="_images/Proposal_Contributions.jpg" alt="Proposal Contribution">
