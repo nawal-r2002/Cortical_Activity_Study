@@ -29,4 +29,4 @@ title: Project Proposal
 ## Gantt Chart
 
 ## Contribution Table
-<img src=" {{/_images/Proposal_Contributions.jpg" | prepend: site.baseurl | prepend: site.url}} alt="Proposal Contribution">
+<img src="_images/Proposal_Contributions.jpg" alt="Proposal Contribution">
