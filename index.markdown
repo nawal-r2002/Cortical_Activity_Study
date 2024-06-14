@@ -6,9 +6,7 @@ layout: page
 title: Project Proposal
 ---
 ## Proposal Video
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8NkxcaxRacA?si=GZX-UOaGSmIXWTmM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-Temporary Video [Placeholder for Youtube Video]
 ## Introduction
 The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
 
