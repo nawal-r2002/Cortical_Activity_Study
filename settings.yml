@@ -1,4 +1,4 @@
 menu:
 - {name: 'Proposal', url: '/'}
-# - {name: 'Midterm', url: '/publications'}
+- {name: 'Midterm Checkpoint', url: '/midterm'}
 # - {name: 'Final Project', url: '/courses'}
