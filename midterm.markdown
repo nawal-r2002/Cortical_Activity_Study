@@ -36,7 +36,7 @@ Upon using rCCA, we were able to find the canonical components that maximized th
 
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
-
+<img src="_images/mlr_cca.png" alt="mlr_cca">
 ### Multi-Linear Regression with PCA
 
 # References
