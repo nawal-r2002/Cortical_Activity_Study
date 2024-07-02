@@ -3,5 +3,14 @@
 Akshaya Arun, Manasa Golla, Nawal Reza, Jemmy Xiao, Kaitlyn Zhuang
 
 Use this formatting for each of the directories
-/dir/: Description of the directory
+/_dir/: Description of the directory
 /dir/file.txt: Description of the file
+
+/_data/: Contains EEG and EMG readings used to train the model
+/_data/HOA_PD_SRM_Output_StatsTable__05-Jun-2024.xlsx: Contains characteristic parameters of the EEG and EMG readings for 204 patients
+
+/models/: Contains implementations of each of our proposed machine learning algorithms and preprocessing methods
+/models/Dual.ipynb: Contains implementation of regularized CCA and multiple linear regression
+/models/Dual_wavelet.ipynb: Contains implementation of wavelet transform on the data
+/models/multi_linear_regression.ipynb: Description of the file
+/models/pca.ipynb: Contains implementation of PCA on the data
