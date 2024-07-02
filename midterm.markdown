@@ -27,15 +27,15 @@ Sparse regression attempts to find a set of vectors that optimize the projection
 A feedforward neural network performs mathematical transforms on the input and applies a nonlinear activation function on it to transform it into the output. This will allow us to capture more complex, and potentially nonlinear relationships that may exist within the data. We plan on using the scikit learn library’s MLPRegressor module to implement the neural network [6].
 We implemented principal component analysis (PCA) and regularized CCA (rCCA) to preprocess our data, and then fitted it to a multiple linear regression model.
 
-### Multi-Linear Regression with Dual-Dimensionality
-Upon using rCCA, we were able to find the canonical components that maximized the correlation between our input and output. Regularization in rCCA helps manage multicollinearity and overfitting. Through cross validation, we determined that one latent dimension was optimal to capture a relationship within our data. To cross validate our rCCA model, we split the training data into 5 folds at random. This model was fit and an r-squared score was calculated for each fold to evaluate the model’s ability to explain the variance in the data.  To validate the significance of our rCCA model, we implemented a null model. Our null model was trained on randomly shuffled data points from the training dataset using the same rCCA approach. The performance (r^2 values) of the null model was compared to the original model to assess the importance of the canonical components. This was repeated for 1000 iterations, and the median r^2 values across all iterations and latent dimensions was used to determine the optimal hyperparameters.  We fitted a linear regression model using the transformed canonical component to quantify the relationship between the canonical components and to predict the output. Here, the transformed canonical components from rCCA were split into training and testing sets. The model was trained using the training set and used to predict the output of the test set.
+### Multi-Linear Regression with rCCA
+Upon using rCCA, we were able to find the canonical components that maximized the correlation between our input and output. Regularization in rCCA helps manage multicollinearity and overfitting. Through cross validation, we determined that one latent dimension was optimal to capture a relationship within our data. To cross validate our rCCA model, we split the training data into 5 folds at random. This model was fit and an r-squared score was calculated for each fold to evaluate the model’s ability to explain the variance in the data.  To validate the significance of our rCCA model, we implemented a null model. Our null model was trained on randomly shuffled data points from the training dataset using the same rCCA approach. The performance (r^2 values) of the null model was compared to the original model to assess the importance of the canonical components. This was repeated for 1000 iterations, and the median r^2 values across all iterations and latent dimensions was used to determine the optimal hyperparameters.  We fitted a linear regression model using the transformed canonical component to quantify the relationship between the canonical components and to predict the output. Here, the transformed canonical components from rCCA were split into training and testing sets. The model was trained using the training set and then used to predict the output of the test set.
 
 
 ### Multi-Linear Regression with PCA
 
 
 ## Results and Discussion
-### Multi-Linear Regression with Dual-Dimensionality
+### Multi-Linear Regression with rCCA
 
 ### Multi-Linear Regression with PCA
 
