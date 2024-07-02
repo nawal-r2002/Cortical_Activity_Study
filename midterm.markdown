@@ -52,6 +52,10 @@ Upon converting our predicted V-values from the canonical space into the input s
 ### Multi-Linear Regression with PCA
 
 ### Next Steps
+We intend to use a wavelet transform instead of the neuromechanics model for preprocessing raw EEG and EMG recordings. It appears that only the first canonical component identified by rCCA may not adequately reconstruct the characteristic parameters of the EMG recordings possibly due to significant differences in scale between the first and subsequent characteristic parameters. We have applied the wavelet transform to both EEG and EMG recordings, and we are currently exploring the implementation of rCCA or PCA on the wavelet-transformed data. By comparing models on different preprocessing methods, we can identify the approach that best captures the relationships within the data. 
+
+We also intend to remove outliers, specifically trials with noisy EEG or EMG recordings. These outliers could potentially introduce inaccuracies in our model training and prediction process. To do so, we plan to review our data quality and preprocessing to ensure the dataset is optimal for modeling. This will ensure there are no missing or erroneous values in the data set while also checking for outliers.
+
 
 # References
 [1] A. M. Payne, L. H. Ting, and G. Hajcak, “Do sensorimotor perturbations to standing balance elicit an error-related negativity?,” Psychophysiology, vol. 56, no. 7, p. e13359, Mar. 2019, doi: https://doi.org/10.1111/psyp.13359.
