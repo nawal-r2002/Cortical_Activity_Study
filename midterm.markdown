@@ -37,15 +37,16 @@ Upon using rCCA, we were able to find the canonical components that maximized th
 ### Multi-Linear Regression with rCCA
 ![Alt text](_images/cross_validation_cca.png)
 
-Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures
+*Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures*
+
 
 ![mlr](_images/mlr_cca.png)
 
-Fig. 2: Result of applying multiple linear regression on canonical components
+*Fig. 2: Result of applying multiple linear regression on canonical components*
 
-  Figure 1 was the result of our cross-validation. It shows the median r^2 value over 1000 iterations of each of the latent dimensions and the null model. The r^2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The r^2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
-	The input arrays, X and Y of sizes (204, 4) and (204, 8) were transformed into U and V of sizes (204, 1) and (204, 1) using an rCCA model that extracted 1 latent dimension and used a regularization constant equal to 1. U and V were then split into a training and testing dataset. 70% of the data was used for training and 30% was used for testing. 
-  The mean squared error of our model was 1.0377 and the r2 score was 0.366. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
+Figure 1 was the result of our cross-validation. It shows the median r^2 value over 1000 iterations of each of the latent dimensions and the null model. The r^2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The r^2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
+The input arrays, X and Y of sizes (204, 4) and (204, 8) were transformed into U and V of sizes (204, 1) and (204, 1) using an rCCA model that extracted 1 latent dimension and used a regularization constant equal to 1. U and V were then split into a training and testing dataset. 70% of the data was used for training and 30% was used for testing. 
+The mean squared error of our model was 1.0377 and the r2 score was 0.366. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
 Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our r2 score was a large negative number. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
 
 ### Multi-Linear Regression with PCA
