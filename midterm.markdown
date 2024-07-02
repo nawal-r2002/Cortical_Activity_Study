@@ -6,7 +6,7 @@ layout: page
 title: Midterm Checkpoint
 permalink: '\midterm'
 ---
-# Introduction
+## Introduction
 The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
 
 Recordings from the cortex using electroencephalography (EEG) have revealed a large, negative peak of cortical activity, N1, known as an error assessment signal evoked when external stimuli cause an unexpected error from the upright posture [1]. 
@@ -15,20 +15,41 @@ A general framework for decoding neural signals has been established by Saeidi, 
 
 Our dataset includes 6 experimental recordings (6 conditions: 2 directions and 3 magnitudes of balance perturbation) of EEG and EMG per participant, collected from 36 participants (19 healthy old adults, 17 Parkinson’s Disease patients) in the Emory Rehabilitation Hospital. This results in 216 data points in total. 
 
-# Problem Definition
+## Problem Definition
 Our goal for this study is to develop predictive models in order to accurately forecast the characteristic parameters of muscle activity based on the characteristic parameters of the cortical N1 activity. This approach aims to enhance our ability to investigate changes in cortical contributions to balance control in aging and impairment.
 
 ## Methods
-# Pre-Processing Methods
+The EEG and EMG recordings will be preprocessed using a neuromechanical model, which reconstructs the data into several characteristic parameters based on the participants’ center of mass (CoM) kinematics recordings [3]. After processing this model, we will obtain 4 characteristic parameters for the N1 activity, including 3 CoM feedback gains and 1 time latency. Additionally, we will obtain 8 characteristic parameters for muscle activity, including 6 CoM feedback gains and 2 time latencies.
+In order to pre-process the characteristic parameters gained from the neuromechanical model, we used techniques which include PCA, and regularized canonical correlation analysis (CCA) to help us identify transformations between input and output that maximize the correlation [4].
+For our supervised learning models we plan to apply multiple linear regression, sparse regression, and a feedforward neural network.
+Multiple Linear Regression will allow us to determine the relative contributions of each of the four characteristics in our input data to the output. It will also allow us to determine whether a linear relationship exists within the data.
+Sparse regression attempts to find a set of vectors that optimize the projection from the input to the output. The number of nonzero entries in the vectors is minimized which will allow us to determine which of the input features are most crucial to the output [5].
+A feedforward neural network performs mathematical transforms on the input and applies a nonlinear activation function on it to transform it into the output. This will allow us to capture more complex, and potentially nonlinear relationships that may exist within the data. We plan on using the scikit learn library’s MLPRegressor module to implement the neural network [6].
+We implemented principal component analysis (PCA) and regularized CCA (rCCA) to preprocess our data, and then fitted it to a multiple linear regression model.
+
+### Multi-Linear Regression with rCCA
+Upon using rCCA, we were able to find the canonical components that maximized the correlation between our input and output. Regularization in rCCA helps manage multicollinearity and overfitting. Through cross validation, we determined that one latent dimension was optimal to capture a relationship within our data. To cross validate our rCCA model, we split the training data into 5 folds at random. This model was fit and an r-squared score was calculated for each fold to evaluate the model’s ability to explain the variance in the data.  To validate the significance of our rCCA model, we implemented a null model. Our null model was trained on randomly shuffled data points from the training dataset using the same rCCA approach. The performance (r^2 values) of the null model was compared to the original model to assess the importance of the canonical components. This was repeated for 1000 iterations, and the median r^2 values across all iterations and latent dimensions was used to determine the optimal hyperparameters.  We fitted a linear regression model using the transformed canonical component to quantify the relationship between the canonical components and to predict the output. Here, the transformed canonical components from rCCA were split into training and testing sets. The model was trained using the training set and then used to predict the output of the test set.
+
+### Multi-Linear Regression with PCA
 
 
-# Multi-Linear Regression
+## Results and Discussion
+### Multi-Linear Regression with rCCA
+![Alt text](_images/cross_validation_cca.png)
 
+Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures
+![mlr](_images/mlr_cca.png)
 
-# Results and Discussion
-## Multi-Linear Regression with Dual-Dimensionality
+Fig. 2: Result of applying multiple linear regression on canonical components
 
-## Multi-Linear Regression with PCA
+  Figure 1 was the result of our cross-validation. It shows the median r^2 value over 1000 iterations of each of the latent dimensions and the null model. The r^2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The r^2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
+	The input arrays, X and Y of sizes (204, 4) and (204, 8) were transformed into U and V of sizes (204, 1) and (204, 1) using an rCCA model that extracted 1 latent dimension and used a regularization constant equal to 1. U and V were then split into a training and testing dataset. 70% of the data was used for training and 30% was used for testing. 
+  The mean squared error of our model was 1.0377 and the r2 score was 0.366. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
+Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our r2 score was a large negative number. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
+
+### Multi-Linear Regression with PCA
+
+### Next Steps
 
 # References
 [1] A. M. Payne, L. H. Ting, and G. Hajcak, “Do sensorimotor perturbations to standing balance elicit an error-related negativity?,” Psychophysiology, vol. 56, no. 7, p. e13359, Mar. 2019, doi: https://doi.org/10.1111/psyp.13359.
