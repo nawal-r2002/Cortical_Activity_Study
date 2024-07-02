@@ -36,10 +36,9 @@ Upon using rCCA, we were able to find the canonical components that maximized th
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
 ![Alt text](_images/cross_validation_cca.png)
-
 Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures
-![mlr](_images/mlr_cca.png)
 
+![mlr](_images/mlr_cca.png)
 Fig. 2: Result of applying multiple linear regression on canonical components
 
   Figure 1 was the result of our cross-validation. It shows the median r^2 value over 1000 iterations of each of the latent dimensions and the null model. The r^2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The r^2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
