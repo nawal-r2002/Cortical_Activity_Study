@@ -19,10 +19,10 @@ Our dataset includes 6 experimental recordings (6 conditions: 2 directions and 3
 Our goal for this study is to develop predictive models in order to accurately forecast the characteristic parameters of muscle activity based on the characteristic parameters of the cortical N1 activity. This approach aims to enhance our ability to investigate changes in cortical contributions to balance control in aging and impairment.
 
 ## Methods
-# Pre-Processing Methods
+# Multi-Linear Regression with Dual-Dimensionality
 
 
-# Multi-Linear Regression
+# Multi-Linear Regression with PCA
 
 
 ## Results and Discussion
