@@ -19,16 +19,16 @@ Our dataset includes 6 experimental recordings (6 conditions: 2 directions and 3
 Our goal for this study is to develop predictive models in order to accurately forecast the characteristic parameters of muscle activity based on the characteristic parameters of the cortical N1 activity. This approach aims to enhance our ability to investigate changes in cortical contributions to balance control in aging and impairment.
 
 # Methods
-## Pre-Processing Methods
+### Pre-Processing Methods
 
 
-## Multi-Linear Regression
+### Multi-Linear Regression
 
 
 # Results and Discussion
-## Multi-Linear Regression with Dual-Dimensionality
+### Multi-Linear Regression with Dual-Dimensionality
 
-## Multi-Linear Regression with PCA
+### Multi-Linear Regression with PCA
 
 # References
 [1] A. M. Payne, L. H. Ting, and G. Hajcak, “Do sensorimotor perturbations to standing balance elicit an error-related negativity?,” Psychophysiology, vol. 56, no. 7, p. e13359, Mar. 2019, doi: https://doi.org/10.1111/psyp.13359.
