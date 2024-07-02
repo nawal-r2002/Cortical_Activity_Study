@@ -37,6 +37,7 @@ Upon using rCCA, we were able to find the canonical components that maximized th
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
 ![Alt text](_images/cross_validation_cca.png)
+Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures
 ![mlr](_images/mlr_cca.png)
 Fig. 2: Result of applying multiple linear regression on canonical components
 ### Multi-Linear Regression with PCA
