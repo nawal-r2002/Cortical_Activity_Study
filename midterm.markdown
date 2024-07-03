@@ -40,15 +40,14 @@ The PCA model was implemented on the X and Y of the training and test data set t
 
 *Fig. 2: Result of applying multiple linear regression on canonical components*
 
-Figure 1 was the result of our cross-validation. It shows the median $r^2$ value over 1000 iterations of each of the latent dimensions and the null model. The $r^2$ score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The $r^2$ value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
+Figure 1 was the result of our cross-validation. It shows the median r2 value over 1000 iterations of each of the latent dimensions and the null model. The r2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The r2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
 The input arrays, X and Y of sizes (204, 4) and (204, 8) were transformed into U and V of sizes (204, 1) and (204, 1) using an rCCA model that extracted 1 latent dimension and used a regularization constant equal to 1. U and V were then split into a training and testing dataset. 70% of the data was used for training and 30% was used for testing. 
 The mean squared error of our model was 1.0377 and the r2 score was 0.366. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
 Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our r2 score was a large negative number. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
 
 ### Multi-Linear Regression with PCA
-|Figure 3a. |Fig 3b.|
-|:-:|:-:|
-|![PCA on X](_images/PCA_X.jpg)|![PCA on Y](_images/PCA_Y.jpg)|
+[PCA on X](_images/PCA_X.jpg)
+[PCA on Y](_images/PCA_Y.jpg)
 
 *Fig. 3: a. PCA Feature Visualization for X, b. PCA Feature Visualization for Y*
 
@@ -59,7 +58,6 @@ Upon converting our predicted V-values from the canonical space into the input s
 Figure 3 is the result from completing PCA on X and Y of the dataset. Figure 3a. shows that the testing set for X has relatively few noise points in the PCA Space and created a cluster of data along the training set. 
 
 ![MLR_PCA](_images/mlr_pca.png)
-![MLR_PCA_Metrics](_images/mlr_pca_metrics.jpg)
 
 *Fig 5: Result of Applying Multi-Linear Regression from PCA*
 
