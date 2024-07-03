@@ -18,17 +18,16 @@ Our goal for this study is to develop predictive models in order to accurately f
 ## Methods
 The EEG and EMG recordings will be preprocessed using a neuromechanical model, which reconstructs the data into several characteristic parameters based on the participants’ center of mass (CoM) kinematics recordings [3]. After processing this model, we will obtain 4 characteristic parameters for the N1 activity, including 3 CoM feedback gains and 1 time latency. Additionally, we will obtain 8 characteristic parameters for muscle activity, including 6 CoM feedback gains and 2 time latencies.
 In order to pre-process the characteristic parameters gained from the neuromechanical model, we used techniques which include PCA, and regularized canonical correlation analysis (CCA) to help us identify transformations between input and output that maximize the correlation [4].
-For our supervised learning models we plan to apply multiple linear regression, sparse regression, and a feedforward neural network.
+For our supervised learning models, we applied a multiple linear regression model, and we hope to implement a sparse regression, and a feedforward neural network in the next phase.
 Multiple Linear Regression will allow us to determine the relative contributions of each of the four characteristics in our input data to the output. It will also allow us to determine whether a linear relationship exists within the data.
 Sparse regression attempts to find a set of vectors that optimize the projection from the input to the output. The number of nonzero entries in the vectors is minimized which will allow us to determine which of the input features are most crucial to the output [5].
 A feedforward neural network performs mathematical transforms on the input and applies a nonlinear activation function on it to transform it into the output. This will allow us to capture more complex, and potentially nonlinear relationships that may exist within the data. We plan on using the scikit learn library’s MLPRegressor module to implement the neural network [6].
-We implemented principal component analysis (PCA) and regularized CCA (rCCA) to preprocess our data, and then fitted it to a multiple linear regression model.
 
 ### Multi-Linear Regression with rCCA
 Upon using rCCA, we were able to find the canonical components that maximized the correlation between our input and output. Regularization in rCCA helps manage multicollinearity and overfitting. Through cross validation, we determined that one latent dimension was optimal to capture a relationship within our data. To cross validate our rCCA model, we split the training data into 5 folds at random. This model was fit and an r-squared score was calculated for each fold to evaluate the model’s ability to explain the variance in the data.  To validate the significance of our rCCA model, we implemented a null model. Our null model was trained on randomly shuffled data points from the training dataset using the same rCCA approach. The performance (r^2 values) of the null model was compared to the original model to assess the importance of the canonical components. This was repeated for 1000 iterations, and the median r^2 values across all iterations and latent dimensions was used to determine the optimal hyperparameters.  We fitted a linear regression model using the transformed canonical component to quantify the relationship between the canonical components and to predict the output. Here, the transformed canonical components from rCCA were split into training and testing sets. The model was trained using the training set and then used to predict the output of the test set.
 
 ### Multi-Linear Regression with PCA
-The PCA model was implemented on the X and Y of the training and test data set to understand structure and reduce dimensionality. The data was split such that there was 70% training data and 30% testing data. The input and output features were scaled to ensure uniformity in the data using scikit learn. Then, PCA applied to find the first two principal components for the input and output training and testing data. After finding the principal components set for the training set, we used it to predict the output of the linear regression model for the test set. 
+The PCA model was implemented on the X and Y of the training and test data set to understand structure and reduce dimensionality. The data was split such that there was 70% training data and 30% testing data. The input and output features were scaled to ensure uniformity in the data using scikit learn. Then, PCA applied to find the first two principal components for the input and output training and testing data. After finding the principal components set for the training set, we used it to predict the output of the linear regression model for the test set.
 
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
@@ -46,14 +45,11 @@ The mean squared error of our model was 1.0377 and the r2 score was 0.366. We su
 Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our r2 score was a large negative number. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
 
 ### Multi-Linear Regression with PCA
-[PCA on X](_images/PCA_X.jpg)
-[PCA on Y](_images/PCA_Y.jpg)
+![PCA on X](_images/PCA_X.jpg)
+*Fig. 3: PCA Feature Visualization for X*
 
-*Fig. 3: a. PCA Feature Visualization for X, b. PCA Feature Visualization for Y*
-
-![PCA Metrics](_images/PCA_Metrics.jpg)
-
-*Fig 4: PCA Principal Components and Variance for Input and Output*
+![PCA on Y](_images/PCA_Y.jpg)
+*Fig. 4: PCA Feature Visualization for X, b. PCA Feature Visualization for Y*
 
 Figure 3 is the result from completing PCA on X and Y of the dataset. Figure 3a. shows that the testing set for X has relatively few noise points in the PCA Space and created a cluster of data along the training set. 
 
