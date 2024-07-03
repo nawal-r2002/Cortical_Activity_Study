@@ -31,7 +31,7 @@ We implemented principal component analysis (PCA) and regularized CCA (rCCA) to 
 Upon using rCCA, we were able to find the canonical components that maximized the correlation between our input and output. Regularization in rCCA helps manage multicollinearity and overfitting. Through cross validation, we determined that one latent dimension was optimal to capture a relationship within our data. To cross validate our rCCA model, we split the training data into 5 folds at random. This model was fit and an r-squared score was calculated for each fold to evaluate the model’s ability to explain the variance in the data.  To validate the significance of our rCCA model, we implemented a null model. Our null model was trained on randomly shuffled data points from the training dataset using the same rCCA approach. The performance (r^2 values) of the null model was compared to the original model to assess the importance of the canonical components. This was repeated for 1000 iterations, and the median r^2 values across all iterations and latent dimensions was used to determine the optimal hyperparameters.  We fitted a linear regression model using the transformed canonical component to quantify the relationship between the canonical components and to predict the output. Here, the transformed canonical components from rCCA were split into training and testing sets. The model was trained using the training set and then used to predict the output of the test set.
 
 ### Multi-Linear Regression with PCA
-
+The PCA model was implemented on the X and Y of the training and test data set to understand structure and reduce dimensionality. The data was split such that there was 70% training data and 30% testing data. The input and output features were scaled to ensure uniformity in the data using scikit learn. Then, PCA applied to find the first two principal components for the input and output training and testing data. After finding the principal components set for the training set, we used it to predict the output of the linear regression model for the test set. 
 
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
@@ -50,6 +50,21 @@ The mean squared error of our model was 1.0377 and the r2 score was 0.366. We su
 Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our r2 score was a large negative number. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
 
 ### Multi-Linear Regression with PCA
+|Figure 3a. |Fig 3b.|
+|:-:|:-:|
+|![PCA on X](_images/PCA_X.jpg)|![PCA on Y](_images/PCA_Y.jpg)|
+
+*Fig. 3: a. PCA Feature Visualization for X, b. PCA Feature Visualization for Y*
+
+
+![PCA Metrics](_images/PCA_Metrics.jpg)
+
+*Fig 4: PCA Principal Components and Variance for Input and Output*
+
+<!-- ![MLR](_images/PCA_Metrics.jpg) -->
+
+*Fig 5: Result of Applying Multi Linear Regression from PCA*
+
 
 ### Next Steps
 We intend to use a wavelet transform instead of the neuromechanics model for preprocessing raw EEG and EMG recordings. It appears that only the first canonical component identified by rCCA may not adequately reconstruct the characteristic parameters of the EMG recordings possibly due to significant differences in scale between the first and subsequent characteristic parameters. We have applied the wavelet transform to both EEG and EMG recordings, and we are currently exploring the implementation of rCCA or PCA on the wavelet-transformed data. By comparing models on different preprocessing methods, we can identify the approach that best captures the relationships within the data. 
