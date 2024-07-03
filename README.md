@@ -2,10 +2,6 @@
 ## Analyzing Cortical Relations to Muscle Activity
 Akshaya Arun, Manasa Golla, Nawal Reza, Jemmy Xiao, Kaitlyn Zhuang
 
-Use this formatting for each of the directories
-/_dir/: Description of the directory
-/dir/file.txt: Description of the file
-
 /_data/: Contains EEG and EMG readings used to train the model
 /_data/HOA_PD_SRM_Output_StatsTable__05-Jun-2024.xlsx: Contains characteristic parameters of the EEG and EMG readings for 204 patients
 
