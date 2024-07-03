@@ -61,6 +61,8 @@ Upon converting our predicted V-values from the canonical space into the input s
 
 *Fig 4: PCA Principal Components and Variance for Input and Output*
 
+
+
 <!-- ![MLR](_images/PCA_Metrics.jpg) -->
 
 *Fig 5: Result of Applying Multi Linear Regression from PCA*
