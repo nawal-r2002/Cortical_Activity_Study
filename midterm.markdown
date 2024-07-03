@@ -52,7 +52,6 @@ Upon converting our predicted V-values from the canonical space into the input s
 
 *Fig. 3: a. PCA Feature Visualization for X, b. PCA Feature Visualization for Y*
 
-
 ![PCA Metrics](_images/PCA_Metrics.jpg)
 
 *Fig 4: PCA Principal Components and Variance for Input and Output*
@@ -64,7 +63,7 @@ Figure 3 is the result from completing PCA on X and Y of the dataset. Figure 3a.
 
 *Fig 5: Result of Applying Multi-Linear Regression from PCA*
 
-The results from the mean squared error was 1.38987 and the R2 score was 0.001345. From these metrics, it can be suspected that a linear model was not able to capture the complex relationships from the dataset. The presence of outliers may have increased the chance of the model not working and it may be possible that there was not a sufficient number of components signified for X and Y
+The results from the mean squared error was 1.38987 and the R2 score was 0.001345. From these metrics, it can be suspected that a linear model was not able to capture the complex relationships from the dataset. The presence of outliers may have increased the chance of the model not working and it may be possible that there was not a sufficient number of components signified for X and Y since the computed cumulative variance ratio did not reach an adequate threshold. 
 
 ## Next Steps
 We intend to use a wavelet transform instead of the neuromechanics model for preprocessing raw EEG and EMG recordings. It appears that only the first canonical component identified by rCCA may not adequately reconstruct the characteristic parameters of the EMG recordings possibly due to significant differences in scale between the first and subsequent characteristic parameters. We have applied the wavelet transform to both EEG and EMG recordings, and we are currently exploring the implementation of rCCA or PCA on the wavelet-transformed data. By comparing models on different preprocessing methods, we can identify the approach that best captures the relationships within the data. 
