@@ -67,6 +67,9 @@ We intend to use a wavelet transform instead of the neuromechanics model for pre
 
 We also intend to remove outliers, specifically trials with noisy EEG or EMG recordings. These outliers could potentially introduce inaccuracies in our model training and prediction process. To do so, we plan to review our data quality and preprocessing to ensure the dataset is optimal for modeling. This will ensure there are no missing or erroneous values in the data set while also checking for outliers. 
 
+Also, we hope to modify the results of PCA by attempting to maximize the number of principal components for 
+X and Y. To do so, we will set a threshold of 85% and complete analysis in order to determine the best number of components. This will ensure that the variance is maximized such that the dimension of both the input and output dimension is reduced adequately. 
+
 ## References
 [1] A. M. Payne, L. H. Ting, and G. Hajcak, “Do sensorimotor perturbations to standing balance elicit an error-related negativity?,” Psychophysiology, vol. 56, no. 7, p. e13359, Mar. 2019, doi: https://doi.org/10.1111/psyp.13359.
 
