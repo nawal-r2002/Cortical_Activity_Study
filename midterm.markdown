@@ -45,11 +45,13 @@ Upon converting our predicted V-values from the canonical space into the input s
 
 ### Multi-Linear Regression with PCA
 ![PCA on X](_images/PCA_X.jpg)
+
 *Fig. 3: PCA Space Feature Visualization for X*
 
 Figure 3 is the result from completing PCA on X shows that the testing set for X has relatively few noise points in the PCA Space and created a cluster of data along the training set. Also, the cumulative variance ratio is 68% for X therefore 68% of the variance is captured from the original 4 features from X. This suggests that there are significant features in the dataset that could predict the main characteristic parameters. 
 
 ![PCA on Y](_images/PCA_Y.jpg)
+
 *Fig. 4: PCA Space Feature Visualization for Y*
 
 Figure 4 is the result from completing PCA on Y and it shows that the points in a two-dimensional space are scattered such that no clusters are created between training set and there is no specific clusters created from the test set. Also, the cumulative variance ratio is 45% for Y therefore the two principal components shows 45% of the variance captured from the dataset. The amount of variance captured may not have a pivotal role in the predictive model's outcome. 
