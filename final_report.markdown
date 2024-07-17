@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Final Report
+title: Final Project
 permalink: '\final_report'
 ---
 ## Introduction
