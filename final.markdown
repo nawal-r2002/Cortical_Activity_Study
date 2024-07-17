@@ -1,8 +1,7 @@
 ---
 layout: page
 title: Final Project
-permalink: '\final_report\'
-nav_order: 3
+permalink: '\final'
 ---
 ## Introduction
 The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
@@ -62,6 +61,8 @@ Figure 4 is the result from completing PCA on Y and it shows that the points in 
 *Fig 5: Result of Applying Multi-Linear Regression from PCA*
 
 The results from the mean squared error was 1.38987 and the R2 score was 0.001345. From these metrics, it can be suspected that a linear model was not able to capture the complex relationships from the dataset. The presence of outliers may have increased the chance of the model not working and it may be possible that there was not a sufficient number of components signified for X and Y since the computed cumulative variance ratio did not reach an adequate threshold. Also, the results shown in Figure 5 could not be accurate for the prediction because the scope of the model was not converted bcck to the individual components from the original input and output after completing using PCA on the model. 
+
+## Model Comparison
 
 ## Next Steps
 We intend to use a wavelet transform instead of the neuromechanics model for preprocessing raw EEG and EMG recordings. It appears that only the first canonical component identified by rCCA may not adequately reconstruct the characteristic parameters of the EMG recordings possibly due to significant differences in scale between the first and subsequent characteristic parameters. We have applied the wavelet transform to both EEG and EMG recordings, and we are currently exploring the implementation of rCCA or PCA on the wavelet-transformed data. By comparing models on different preprocessing methods, we can identify the approach that best captures the relationships within the data. 
