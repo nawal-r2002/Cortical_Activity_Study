@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Final Project
-permalink: '\final_report'
+permalink: '\final_report\'
+nav_order: 3
 ---
 ## Introduction
 The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
