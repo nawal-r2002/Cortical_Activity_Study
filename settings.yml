@@ -1,4 +1,0 @@
-menu:
-- {name: 'Proposal', url: '/'}
-- {name: 'Midterm Checkpoint', url: '/midterm'}
-- {name: 'Final Report', url: '/final'}
