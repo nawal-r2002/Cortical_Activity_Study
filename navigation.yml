@@ -1,0 +1,9 @@
+main:
+  - title: "Project Proposal"
+    url: /
+
+  - title: "Midterm Checkpoint"
+    url: /midterm/
+
+  - title: "Final Report"
+    url: /final/
