@@ -51,8 +51,3 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
-
-header_pages:
-  - index.markdown
-  - midterm.markdown
-  - final.markdown

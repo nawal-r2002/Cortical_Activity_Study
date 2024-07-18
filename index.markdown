@@ -4,7 +4,8 @@
 
 layout: page
 title: Project Proposal
-nav_order: 1
+Nav_include: Yes
+Nav_order: 1
 ---
 ## Proposal Video
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LuKO74ikTkk?si=GLPDVlfYyMFnAWEU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
