@@ -80,7 +80,8 @@ The results from the RMSE was 1.1789 and the R2 score was 0.001345. From these m
 
 *Fig. 5: PCA Space Feature Visualization for X with 85% 
 ![MLR from PCA](_images/mlr_pca_updated.png)
-*Fig. 6: Ridge Regression on Canonical Components of Wavedata*
+
+*Fig. 6: MLR from PCA Results*
 
 With 85% variance, 3 principal components were found in the z-space for the training and testing dataset for the input data in the neuromechanical model. Therefore, we can see that the data has started to move further apart from each other when looking at Figure 5 which means that more variance can be seen from adding an extra component in the model.
 
@@ -90,7 +91,6 @@ When running the MLR model with the the updated versions of X and Y has shown th
 
 ### Sparse Regression with Scaling and rCCA on Characteristic Parameters
 ![Ridge Regression on Canonical Components](_images/ridge_regression_cca.png)
-
 
 *Fig. 7:  Ridge Regression on Canonical Components of Characteristic Parameters of EEG and EMG*
 
@@ -122,12 +122,14 @@ The negative R2 score can likely be explained by the large loss of dimensionalit
 
 ### Feedforward Neural Network
 ![Feedforward Loss over 200 Epochs](_images/FeedforwardLoss.png)
+
 *Fig. 10: Feedforward Model Loss Trend for Training and Testing Data over 200 Epochs 
 
 With the feedforward neural network we attempted to use time-series data for the three features and the output from EMG data. From the initial feedforward neural network implementation with this dataset, we found that the model may be slightly overfitted due to the differences in the trends between the training and testing data in some of the iterations. This might be because the feedforward neural network was not able to hangle the temporal relationships that might be within the time series data. 
 
 ### Recurrent Neural Network
 ![Recurrent Loss over 200 Epochs](_images/RecurrentLoss.png)
+
 *Fig. 11: Recurrent Model Loss Trend for Training and Testing Data over 200 Epochs*
 
 After implementing the RNN with the time-series dataset, we found that there was not a significant loss difference between the training and testing data after the initial iteration as shown in Figure 11. Therefore, this model was shown not to be an overfitted model, which ,eans that we may be able to see more accurate predictions from our test data. 
