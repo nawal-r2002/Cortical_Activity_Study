@@ -1,11 +1,8 @@
 ---
 layout: page
-title: Final Report
-permalink: '/final/'
+title: Midterm Checkpoint
+permalink: '/midterm/'
 ---
-## Final Report Video
-<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/LuKO74ikTkk?si=GLPDVlfYyMFnAWEU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
-
 ## Introduction
 The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
 
@@ -21,15 +18,27 @@ Our goal for this study is to develop predictive models in order to accurately f
 ## Methods
 The EEG and EMG recordings were preprocessed using a neuromechanical model, which reconstructs the data into several characteristic parameters based on the participants’ center of mass (CoM) kinematics recordings [3]. After processing this model, we obtained 4 characteristic parameters for the N1 activity, including 3 CoM feedback gains and 1 time latency. Additionally, we obtained 8 characteristic parameters for muscle activity, including 6 CoM feedback gains and 2 time latencies.
 In order to pre-process the characteristic parameters gained from the neuromechanical model, we used techniques which include PCA, and regularized canonical correlation analysis (CCA) to help us identify transformations between input and output that maximize the correlation [4].
-For our supervised learning models, we applied a multiple linear regression model, and we hope to implement a sparse regression, and a feedforward neural network in the next phase.
+For our supervised learning models, we applied a multiple linear regression model, sparse regressio by applying a ridge regression algorithm, a feedforward neural network (FNN) and a recurrent neural network (RNN). 
 
 Using Multiple Linear Regression will allow us to determine the relative contributions of each of the four characteristics in our input data to the output. It will also allow us to determine whether a linear relationship exists within the data.
+
+Sparse regression attempts to find a set of vectors that optimize the projection from the input to the output. The number of nonzero entries in the vectors is minimized which will allow us to determine which of the input features are most crucial to the output [5]. 
+
+A feedforward neural network performs mathematical transforms on the input and applies a nonlinear activation function on it to transform it into the output. This will allow us to capture more complex, and potentially nonlinear relationships that may exist within the data. 
+
+A recurrent neural network performs mathematical transformations on the input
 
 ### Multi-Linear Regression with rCCA
 Upon using rCCA, we were able to find the canonical components that maximized the correlation between our input and output. Regularization in rCCA helps manage multicollinearity and overfitting. Through cross validation, we determined that one latent dimension was optimal to capture a relationship within our data. To cross validate our rCCA model, we split the training data into 5 folds at random. This model was fit and an r-squared score was calculated for each fold to evaluate the model’s ability to explain the variance in the data.  To validate the significance of our rCCA model, we implemented a null model. Our null model was trained on randomly shuffled data points from the training dataset using the same rCCA approach. The performance (r^2 values) of the null model was compared to the original model to assess the importance of the canonical components. This was repeated for 1000 iterations, and the median r^2 values across all iterations and latent dimensions was used to determine the optimal hyperparameters.  We fitted a linear regression model using the transformed canonical component to quantify the relationship between the canonical components and to predict the output. Here, the transformed canonical components from rCCA were split into training and testing sets. The model was trained using the training set and then used to predict the output of the test set.
 
 ### Multi-Linear Regression with PCA
-The PCA model was implemented on the X and Y of the training and test data set to understand structure and reduce dimensionality. The data was split such that there was 70% training data and 30% testing data. The input and output features were scaled to ensure uniformity in the data using scikit learn. Then, PCA applied to find the first two principal components for the input and output training and testing data and the first principa After finding the principal components set for the training set, we used it to predict the output of the linear regression model for the test set.
+The PCA model was implemented on the X and Y of the training and test data set to understand structure and reduce dimensionality. The data was split such that there was 70% training data and 30% testing data. The input and output features were scaled to ensure uniformity in the data using scikit learn. Then, PCA applied to find the first two principal components for the input and output training and testing data. After finding the principal components set for the training set, we used it to predict the output of the linear regression model for the test set.
+
+### Sparse Regression
+
+
+### Feedforaward and Recurrent Neural Network
+
 
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
@@ -59,16 +68,23 @@ Figure 3 is the result from completing PCA on X shows that the testing set for X
 
 Figure 4 is the result from completing PCA on Y and it shows that the points in a two-dimensional space are scattered such that no clusters are created between training set and there is no specific clusters created from the test set. Also, the cumulative variance ratio is 45% for Y therefore the two principal components shows 45% of the variance captured from the dataset. The amount of variance captured may not have a pivotal role in the predictive model's outcome. 
 
-![MLR_PCA](_images/mlr_pca.png)
+The results from the mean squared error was 1.38987 and the R2 score was 0.001345. From these metrics, it can be suspected that a linear model was not able to capture the complex relationships from the dataset. The presence of outliers may have increased the chance of the model not working and it may be possible that there was not a sufficient number of components signified for X and Y since the computed cumulative variance ratio did not reach an adequate threshold. Also, the results shown from the multi-linear regression may not be accurate for the prediction because the scope of the model was not converted bcck to the individual components from the original input and output after completing using PCA on the model. 
 
-*Fig 5: Result of Applying Multi-Linear Regression from PCA*
+![PCA on X with 85% Variance in Componenents](_images/PCA_X_Updated.jpg)
 
-The results from the mean squared error was 1.38987 and the R2 score was 0.001345. From these metrics, it can be suspected that a linear model was not able to capture the complex relationships from the dataset. The presence of outliers may have increased the chance of the model not working and it may be possible that there was not a sufficient number of components signified for X and Y since the computed cumulative variance ratio did not reach an adequate threshold. Also, the results shown in Figure 5 could not be accurate for the prediction because the scope of the model was not converted bcck to the individual components from the original input and output after completing using PCA on the model. 
+*Fig. 5: PCA Space Feature Visualization for X with 85% 
 
+With 85% variance, 3 principal components were found in the z-space for the training and testing dataset for the input data in the neuromechanical model. 
 
+![MLR from PCA](_images/mlr_pca_updated.png)
 
-## Model Comparison
+*Fig. 6: PCA Space Feature Visualization for Y*
 
+### Sparse Regression
+
+### Feedforward and Recurrent Neural Network
+
+## Model Comparison and Explanation of Results
 
 ## Next Steps
 
