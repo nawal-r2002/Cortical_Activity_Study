@@ -78,7 +78,7 @@ The results from the RMSE was 1.1789 and the R2 score was 0.001345. From these m
 
 ![PCA on X with 85% Variance in Componenents](_images/PCA_X_Updated.png)
 
-*Fig. 5: PCA Space Feature Visualization for X with 85% 
+*Fig. 5: PCA Space Feature Visualization for X with 85%*
 ![MLR from PCA](_images/mlr_pca_updated.png)
 
 *Fig. 6: MLR from PCA Results*
@@ -123,7 +123,7 @@ The negative R2 score can likely be explained by the large loss of dimensionalit
 ### Feedforward Neural Network
 ![Feedforward Loss over 200 Epochs](_images/FeedforwardLoss.png)
 
-*Fig. 10: Feedforward Model Loss Trend for Training and Testing Data over 200 Epochs 
+*Fig. 10: Feedforward Model Loss Trend for Training and Testing Data over 200 Epochs*
 
 With the feedforward neural network we attempted to use time-series data for the three features and the output from EMG data. From the initial feedforward neural network implementation with this dataset, we found that the model may be slightly overfitted due to the differences in the trends between the training and testing data in some of the iterations. This might be because the feedforward neural network was not able to hangle the temporal relationships that might be within the time series data. 
 
