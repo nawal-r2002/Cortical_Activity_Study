@@ -118,14 +118,23 @@ The negative R2 score can likely be explained by the large loss of dimensionalit
 
 ## Evaluation and Model Comparison
 ![Feedforward Loss](_images/input_corrs.png)
+
 *Fig 10: Correlation matrix for input features*
+
 ![Feedforward Loss](_images/output_corrs.png)
+
 *Fig 11: Correlation matrix for output features*
+
 ![Feedforward Loss](_images/input_output_corrs.png)
+
 *Fig 12: Correlation matrix for input and output features*
-The above three figures show the correlations between input and out features, just output features and just input features, respectively. There is little correlation between the input and output features as is visible from the first correlation matrix. This could be one of the reasons why our models failed to make good predictions. In the future, we could potentially attempt to increase correlation by experimenting with polynomial features and other feature engineering techniques. 
+
+The above three figures show the correlations between input and out features, just output features and just input features, respectively. There is little correlation between the input and output features as is visible from the last correlation matrix (the first four rows/columns are input features and the rest are output features). This could be one of the reasons why our models failed to make good predictions. In the future, we could potentially attempt to increase correlation by experimenting with polynomial features and other feature engineering techniques. 
+
 ![Feedforward Loss](_images/model_comps.png)
+
 *Fig 13: Table comparing metrics for the implemented models*
+
 For rCCA with multiple linear regression, R2  score was higher and RMSE was lower in the canonical space. But upon converting to XY-space  R2  score dropped and RMSE rose. PCA with multiple linear regression resulted in a higher R2  score than rCCA, but yielded a higher RMSE value. The R2  score was still relatively low, but this can likely be explained by the weak correlation between input features and output features in our dataset. It is also possible that the multiple linear regression model was too complex, and overfitting to our training data, especially considering that our dataset was relatively small. To address these issues, we also implemented a sparse regression model.
 
 For the sparse regression models that used rCCA as a preprocessing technique, R2  score was typically high for predictions made in canonical space. However, when these were converted back into XY-space, it dropped significantly. The RMSE also tended to increase when predictions were converted. We suspect that this is because of issues with how we were converting our predictions back into XY-space. After implementing rCCA without scaling the data, we noticed that the canonical weights matrix had some very small numbers, and thereby gave very little weight to some features. Therefore, when we implemented sparse regression on the characteristic parameters, we used z-score normalization to ensure all the features would be weighted equally. This gave us better results in terms of R2 score for the canonical components. 
