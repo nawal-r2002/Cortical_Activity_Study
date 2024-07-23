@@ -87,8 +87,6 @@ With 85% variance, 3 principal components were found in the z-space for the trai
 
 When running the MLR model with the the updated versions of X and Y has shown that the prediction power of the model slightly increased since the R2 score became 0.07487 and the RMSE became 1.06808. However, these metrics also show that there is not a significant amount of predicting power in order to make conclusions about the characteristic parameters in the input. Also, from Figure 6, we can see that in comparison to the regression line there is significant errors for the predicted model so there may be outliers that have reduced the predictions accuracy. 
 
-![MLR from PCA](_images/mlr_pca_updated.png)
-
 ### Sparse Regression with Scaling and rCCA on Characteristic Parameters
 ![Ridge Regression on Canonical Components](_images/ridge_regression_cca.png)
 
