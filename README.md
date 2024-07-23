@@ -5,9 +5,13 @@ Akshaya Arun, Manasa Golla, Nawal Reza, Jemmy Xiao, Kaitlyn Zhuang
 ### /_data/: Contains EEG and EMG readings used to train the model
 
 /_data/HOA_PD_SRM_Output_StatsTable__05-Jun-2024.xlsx: Contains characteristic parameters of the EEG and EMG readings for 204 patients
+
 /_data/VelocityRecodings.xlsx:
+
 /_data/EMGRecording.xlsx:
+
 /_data/AccelerationRecordings.xlsx:
+
 /_data/DistanceRecording.xlsx:
 
 ### /models/: Contains implementations of each of our proposed machine learning algorithms and preprocessing methods
