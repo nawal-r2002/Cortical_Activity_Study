@@ -46,14 +46,18 @@ The PCA model was implemented on the X and Y of the training and test data set t
 
 *Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures*
 
-![mlr_cca](_images/mlr_cca.png)
+![mlr_cca](_images/mlr_updated.png)
 
 *Fig. 2: Result of applying multiple linear regression on canonical components*
 
-Figure 1 was the result of our cross-validation. It shows the median r2 value over 1000 iterations of each of the latent dimensions and the null model. The r2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The r2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
+Figure 1 was the result of our cross-validation. It shows the median R2 value over 1000 iterations of each of the latent dimensions and the null model. The R2 score of the null model is low, as expected because the data that it is trained on is randomly shuffled and thereby has little correlation. The R2 value of the first latent dimension is the highest and it was therefore chosen to be the latent dimension that would be used to train our model. 
+
 The input arrays, X and Y of sizes (204, 4) and (204, 8) were transformed into U and V of sizes (204, 1) and (204, 1) using an rCCA model that extracted 1 latent dimension and used a regularization constant equal to 1. U and V were then split into a training and testing dataset. 70% of the data was used for training and 30% was used for testing. 
-The mean squared error of our model was 1.0377 and the r2 score was 0.366. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
-Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our r2 score was a large negative number. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
+
+The mean squared error of our model was 0.8696 and the R2 score was 0.4025. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
+
+Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our R2 score was 0.0623 and the RMSE was 0.9762. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
+
 
 ### Multi-Linear Regression with PCA
 ![PCA on X](_images/PCA_X.jpg)
@@ -70,13 +74,35 @@ Figure 4 is the result from completing PCA on Y and it shows that the points in 
 
 The results from the mean squared error was 1.38987 and the R2 score was 0.001345. From these metrics, it can be suspected that a linear model was not able to capture the complex relationships from the dataset. The presence of outliers may have increased the chance of the model not working and it may be possible that there was not a sufficient number of components signified for X and Y since the computed cumulative variance ratio did not reach an adequate threshold. Also, the results shown from the multi-linear regression may not be accurate for the prediction because the scope of the model was not converted bcck to the individual components from the original input and output after completing using PCA on the model. 
 
-![PCA on X with 85% Variance in Componenents](_images/PCA_X_Updated.jpg)
+![PCA on X with 85% Variance in Componenents](_images/PCA_X_Updated.png)
 
 *Fig. 5: PCA Space Feature Visualization for X with 85% 
 
 With 85% variance, 3 principal components were found in the z-space for the training and testing dataset for the input data in the neuromechanical model. 
 
 ![MLR from PCA](_images/mlr_pca_updated.png)
+### Sparse Regression with Scaling and rCCA on Characteristic Parameters
+![Ridge Regression on Canonical Components](_images/ridge_regression_cca.png)
+
+*Fig. 6:  Ridge Regression on Canonical Components of Characteristic Parameters of EEG and EMG*
+### Sparse Regression with rCCA on Wavedata
+![Cross validation ](_images/wave_vis.png)
+
+*Fig. 7: Visualizations of the EEG and EMG waves*
+
+![Ridge Regression on canonical components](_images/ridge_wave_cca.png)
+
+*Fig. 8: Ridge Regression on Canonical Components of Wavedata*
+
+We attempted to improve the existing model by training it on raw EEG and EMG data, to see if reintroducing some features would lead to better results. We noticed that the EMG wave appeared to be almost an inverse of the EEG, so we wanted to see if the ridge regression model could capture this relationship.
+
+Figure 7 shows a sample wave for a single trial. The orange wave shows EMG data and the blue wave shows EEG data. The wave data initially consisted of 1400 dimensions (measurements for 140 timesteps). We were able to cut this down to 200 because we noticed that large fluctuations in the wavelet only occurred until this point. It was difficult to determine a feasible number of latent dimensions that would adequately capture the relationships in our data. Ultimately, we decided to perform rCCA with a regularization term = 0.2 and latent dimension = 1. 
+
+Figure 8 shows the result of fitting a ridge regression model to the canonical component of the wavelet data. For the canonical component, the RMSE value was 0.3636 and the  R2  was 0.8132. The R2 score was higher for this model but we faced problems when trying to convert back into XY-space. The R2 score after converting the predictions was -1555, and the RMSE was 0.6994.
+
+The negative R2 score can likely be explained by the large loss of dimensionality when attempting to reduce 200 dimensions to 1 latent dimension. The wavedata likely also had a large amount of noise leading to a weak correlation between the input and the output.
+
+### Neural Network
 
 *Fig. 6: PCA Space Feature Visualization for Y*
 
