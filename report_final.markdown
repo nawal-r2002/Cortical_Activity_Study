@@ -37,7 +37,7 @@ The PCA model was implemented on the X and Y of the training and test data set t
 
 *Fig. 1: Comparing the correlation between input and output that each of the latent dimensions captures*
 
-![mlr_cca](_images/mlr_cca.png)
+![mlr_cca](_images/mlr_updated.png)
 
 *Fig. 2: Result of applying multiple linear regression on canonical components*
 
