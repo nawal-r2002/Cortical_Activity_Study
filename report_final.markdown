@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Midterm Checkpoint
-permalink: '/midterm/'
+title: Final Report
+permalink: '/final/'
 ---
 ## Introduction
 The capability of the nervous system to effectively control muscles to maintain balance in response to disturbances to the body is crucial for survival. Several neural pathways in the brainstem and spinal cord generate sensorimotor responses, but it is unclear how cortical activity from the brain contributes to these motor responses.
@@ -76,6 +76,8 @@ The results from the mean squared error was 1.38987 and the R2 score was 0.00134
 ![PCA on X with 85% Variance in Componenents](_images/PCA_X_Updated.png)
 
 *Fig. 5: PCA Space Feature Visualization for X with 85% 
+![MLR from PCA](_images/mlr_pca_updated.png)
+*Fig. 6: Ridge Regression on Canonical Components of Wavedata*
 
 With 85% variance, 3 principal components were found in the z-space for the training and testing dataset for the input data in the neuromechanical model. 
 
@@ -96,19 +98,28 @@ With 85% variance, 3 principal components were found in the z-space for the trai
 
 We attempted to improve the existing model by training it on raw EEG and EMG data, to see if reintroducing some features would lead to better results. We noticed that the EMG wave appeared to be almost an inverse of the EEG, so we wanted to see if the ridge regression model could capture this relationship.
 
-Figure 7 shows a sample wave for a single trial. The orange wave shows EMG data and the blue wave shows EEG data. The wave data initially consisted of 1400 dimensions (measurements for 140 timesteps). We were able to cut this down to 200 because we noticed that large fluctuations in the wavelet only occurred until this point. It was difficult to determine a feasible number of latent dimensions that would adequately capture the relationships in our data. Ultimately, we decided to perform rCCA with a regularization term = 0.2 and latent dimension = 1. 
+Figure 8 shows a sample wave for a single trial. The orange wave shows EMG data and the blue wave shows EEG data. The wave data initially consisted of 1400 dimensions (measurements for 140 timesteps). We were able to cut this down to 200 because we noticed that large fluctuations in the wavelet only occurred until this point. It was difficult to determine a feasible number of latent dimensions that would adequately capture the relationships in our data. Ultimately, we decided to perform rCCA with a regularization term = 0.2 and latent dimension = 1. 
 
 Figure 8 shows the result of fitting a ridge regression model to the canonical component of the wavelet data. For the canonical component, the RMSE value was 0.3636 and the  R2  was 0.8132. The R2 score was higher for this model but we faced problems when trying to convert back into XY-space. The R2 score after converting the predictions was -1555, and the RMSE was 0.6994.
 
 The negative R2 score can likely be explained by the large loss of dimensionality when attempting to reduce 200 dimensions to 1 latent dimension. The wavedata likely also had a large amount of noise leading to a weak correlation between the input and the output.
 
 ### Feedforward Neural Network
-![Feedforward Loss](_images/FeedforwardLoss.png)
+![Feedforward Loss over 200 Epochs](_images/FeedforwardLoss.png)
+*Fig. 8: Ridge Regression on Canonical Components of Wavedata*
+With the feedforward neural network we attempted to use time-series data for the three features and the output from EMG data, From the initial feedforward neural network implementation with this dataset, we found that the model may be slightly overfitted due to the differences in the trends between the training and testing data in some of the iterations.
 
 ### Recurrent Neural Network
+![Recurrent Loss over 200 Epochs](_images/RecurrentLoss.png)
+*Fig. 8: Ridge Regression on Canonical Components of Wavedata*
+After implementing the RNN with the time-series dataset, we found that there was not a significant loss difference between the training and testing data after the initial iteration. Therefore, this model was shown not to be an overfitted model, therefore we may be able to see ac
+
+From the metrics, we found that the R2 score from the RNN was 0.318225 and the RMSE was approximately 0.09304. Therefore, this model may be able to show effective results in terms of making an accurate prediction for some cases because the model is able to find a relationship between the inputs and the target data. However, there may be relationships that have not been found between the inputs and target data such that a fully accurate prediction may be made. 
+
 
 ## Evaluation and Model Comparison
-
+![Overall Model Metrics](_images/Model_Metrics.jpg)
+*Fig. 8: Ridge Regression on Canonical Components of Wavedata*
 For rCCA with multiple linear regression, R2  score was higher and RMSE was lower in the canonical space. But upon converting to XY-space  R2  score dropped and RMSE rose. PCA with multiple linear regression resulted in a higher R2  score than rCCA, but yielded a higher RMSE value. The R2  score was still relatively low, but this can likely be explained by the weak correlation between input features and output features in our dataset. It is also possible that the multiple linear regression model was too complex, and overfitting to our training data, especially considering that our dataset was relatively small. To address these issues, we also implemented a sparse regression model.
 
 For the sparse regression models that used rCCA as a preprocessing technique, R2  score was typically high for predictions made in canonical space. However, when these were converted back into XY-space, it dropped significantly. The RMSE also tended to increase when predictions were converted. We suspect that this is because of issues with how we were converting our predictions back into XY-space. After implementing rCCA without scaling the data, we noticed that the canonical weights matrix had some very small numbers, and thereby gave very little weight to some features. Therefore, when we implemented sparse regression on the characteristic parameters, we used z-score normalization to ensure all the features would be weighted equally. This gave us better results in terms of R2 score for the canonical components. However, upon converting back to XY-space, it once again dropped. We then tried running rCCA and ridge regression on the raw wavedata to see if this would capture more detail. This model gave us the highest R2 score for canonical components of all the models that used rCCA. However, once again, upon converting back, it dropped. For this model it dropped to a large negative number, indicating that the model was making predictions that were worse than simply predicting the average of the function for any given test point. We suspected that this was because using 1 latent dimension to capture the relationships in our data led to underfitting. So, we tried experimenting with larger numbers of latent dimensions. Unexpectedly, this resulted in higher RMSE values and lower R2 scores. Another cause could have been the lack of data. The neuromechanical model dataset contained 208 datapoints while the wave dataset contained 107 datapoints. We plan on experimenting with wavelet transforms and different dimensionality reduction techniques in the future. 
@@ -134,4 +145,4 @@ We can ensure model validation and testing through k-fold cross-validation, trac
 ## Contribution Table and Gantt Chart
 [Click Here to View Gantt Chart](https://docs.google.com/spreadsheets/d/1LJo-kXLj1V64y5hSA2eHDMiAgkj5vY8V2jxa6E2smUs/edit?gid=0#gid=0)
 
-<img src="_images/Final_Contributions.jpg" alt="Final Contribution">
+![Final Contributions](_images/Final_Contributions.jpg)
