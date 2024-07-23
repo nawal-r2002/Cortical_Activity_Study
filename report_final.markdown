@@ -37,7 +37,7 @@ The PCA model was implemented on the X and Y of the training and test data set t
 ### Sparse Regression
 
 
-### Feedforaward and Recurrent Neural Network
+### Feedforward and Recurrent Neural Network
 
 
 ## Results and Discussion
@@ -57,7 +57,6 @@ The input arrays, X and Y of sizes (204, 4) and (204, 8) were transformed into U
 The mean squared error of our model was 0.8696 and the R2 score was 0.4025. We suspect that this is because of the sporadic distribution of data and the inability of our linear model to capture its complex relationships. Additionally, the presence of outliers likely increases the inaccuracies of our model. 
 
 Upon converting our predicted V-values from the canonical space into the input space and comparing it with the Y_test, we found that our R2 score was 0.0623 and the RMSE was 0.9762. Upon further inspection, we printed and examined the reconstruction of the predicted Y. We found that our method failed to reconstruct the parameters with smaller values, possibly due to significant differences in scale between the first and subsequent characteristic parameters.
-
 
 ### Multi-Linear Regression with PCA
 ![PCA on X](_images/PCA_X.jpg)
@@ -81,6 +80,7 @@ The results from the mean squared error was 1.38987 and the R2 score was 0.00134
 With 85% variance, 3 principal components were found in the z-space for the training and testing dataset for the input data in the neuromechanical model. 
 
 ![MLR from PCA](_images/mlr_pca_updated.png)
+
 ### Sparse Regression with Scaling and rCCA on Characteristic Parameters
 ![Ridge Regression on Canonical Components](_images/ridge_regression_cca.png)
 
@@ -102,18 +102,24 @@ Figure 8 shows the result of fitting a ridge regression model to the canonical c
 
 The negative R2 score can likely be explained by the large loss of dimensionality when attempting to reduce 200 dimensions to 1 latent dimension. The wavedata likely also had a large amount of noise leading to a weak correlation between the input and the output.
 
-### Neural Network
+### Feedforward Neural Network
 
-*Fig. 6: PCA Space Feature Visualization for Y*
+### Recurrent Neural Network
 
-### Sparse Regression
+## Evaluation and Model Comparison
 
-### Feedforward and Recurrent Neural Network
+For rCCA with multiple linear regression, R2  score was higher and RMSE was lower in the canonical space. But upon converting to XY-space  R2  score dropped and RMSE rose. PCA with multiple linear regression resulted in a higher R2  score than rCCA, but yielded a higher RMSE value. The R2  score was still relatively low, but this can likely be explained by the weak correlation between input features and output features in our dataset. It is also possible that the multiple linear regression model was too complex, and overfitting to our training data, especially considering that our dataset was relatively small. To address these issues, we also implemented a sparse regression model.
 
-## Model Comparison and Explanation of Results
+For the sparse regression models that used rCCA as a preprocessing technique, R2  score was typically high for predictions made in canonical space. However, when these were converted back into XY-space, it dropped significantly. The RMSE also tended to increase when predictions were converted. We suspect that this is because of issues with how we were converting our predictions back into XY-space. After implementing rCCA without scaling the data, we noticed that the canonical weights matrix had some very small numbers, and thereby gave very little weight to some features. Therefore, when we implemented sparse regression on the characteristic parameters, we used z-score normalization to ensure all the features would be weighted equally. This gave us better results in terms of R2 score for the canonical components. However, upon converting back to XY-space, it once again dropped. We then tried running rCCA and ridge regression on the raw wavedata to see if this would capture more detail. This model gave us the highest R2 score for canonical components of all the models that used rCCA. However, once again, upon converting back, it dropped. For this model it dropped to a large negative number, indicating that the model was making predictions that were worse than simply predicting the average of the function for any given test point. We suspected that this was because using 1 latent dimension to capture the relationships in our data led to underfitting. So, we tried experimenting with larger numbers of latent dimensions. Unexpectedly, this resulted in higher RMSE values and lower R2 scores. Another cause could have been the lack of data. The neuromechanical model dataset contained 208 datapoints while the wave dataset contained 107 datapoints. We plan on experimenting with wavelet transforms and different dimensionality reduction techniques in the future. 
+
+The implementation of the neural network showed that it had a higher level of predicting power than MLR and Sparse Regression because of the differences between the RMSE and the R2 score. This is likely due to its ability to capture more complex relationships than simple regression. The regression models that were implemented were only capable of capturing linear relationships, but neural networks seek to introduce nonlinearity with the use of activation functions. Neural networks would also be a good place to start if we decide to reframe our problem as a classification one instead of regression.
 
 ## Next Steps
+To improve our study in the future, several steps can be taken. First, we can refine our preprocessing techniques. We can do this by comparing the performance of models using wavelet transform and the neuromechanical model, optimizing the wavelet transform parameters, and implementing robust methods for outlier detection and removal. We can also explore dimensionality reduction techniques to capture complex relationships in the data. 
 
+In terms of regression model improvement, we can experiment with different regularization techniques such as Lasso and Elastic Net, conduct extensive hyperparameter tuning, and gradually increase model complexity to better capture non-linear relationships. For neural network optimization, we can test various architectures, activation functions, dropout, and regularization techniques, and utilize adaptive learning rate schedules to enhance training.
+
+We can ensure model validation and testing through k-fold cross-validation, tracking additional performance metrics, and evaluating models on a separate test set to assess real-world applicability. Feature importance analysis can be conducted using SHAP values, and based on this analysis, we can engineer new features to potentially enhance model performance. We can also explore a classification approach, including binary and multi-class classification models, and compare their performance to regression models. Additional considerations include implementing data augmentation techniques to increase the size and diversity of the training dataset, investigating domain adaptation techniques for better generalizability, and collaborating with neuroscientists and clinicians to validate the biological plausibility of the model predictions. By following these steps, we aim to enhance the accuracy and robustness of our predictive models, leading to better insights into the cortical contributions to balance control in aging and impairment.
 
 ## References
 [1] A. M. Payne, L. H. Ting, and G. Hajcak, “Do sensorimotor perturbations to standing balance elicit an error-related negativity?,” Psychophysiology, vol. 56, no. 7, p. e13359, Mar. 2019, doi: https://doi.org/10.1111/psyp.13359.
