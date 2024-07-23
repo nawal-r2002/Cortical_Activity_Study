@@ -35,10 +35,11 @@ Upon using rCCA, we were able to find the canonical components that maximized th
 The PCA model was implemented on the X and Y of the training and test data set to understand structure and reduce dimensionality. The data was split such that there was 70% training data and 30% testing data. The input and output features were scaled to ensure uniformity in the data using scikit learn. Then, PCA applied to find the first two principal components for the input and output training and testing data. After finding the principal components set for the training set, we used it to predict the output of the linear regression model for the test set.
 
 ### Sparse Regression
+We also applied a sparse regression model to our data. Considering that we were using relatively small datasets, we chose to use ridge regression to avoid overfitting. Ridge regression also penalizes large weights therefore reducing variance. We compared the metrics of two preprocessing techniques used in conjunction with sparse regression. The first approach involved preprocessing raw EEG and EMG measurements using the neuromechanical model. The characteristic parameters gained from the neuromechanical model were then scaled using z-score normalization to ensure large weights were not skewing predictions due to their magnitude. Then rCCA with 1 latent dimension and a regularization coefficient of 0.2 was applied. The second approach involved preprocessing the raw EEG and EMG measurements with wavelet transform and applying rCCA. Finally, a ridge regression model was fit to both datasets.
 
 
 ### Feedforward and Recurrent Neural Network
-
+We originally applied a feedforward neural network implementation for our dataset. Given that neural networks could handle more complicated data, we decided to use the EMG recordings and the center of mass recordings as our dataset. The center of mass recordings include time series recordings of acceleration, velocity, and distance of the participants during the balance perturbation. We also decided to use a recurrent neural network model since the data we were fitting was time series data for our 3 input features (acceleration, velocity, and distance) and EMG output. Both approaches involved reshaping the data and combining all input features in order to fit the model over all the inputs for each of the data points. After reshaping the data, we were able to fit the model on both neural network models to determine the trends in loss in order to determine the model that would show better results. Finally, after observing the trends in the loss, we made the prediction using the model that did not overfit significantly. 
 
 ## Results and Discussion
 ### Multi-Linear Regression with rCCA
@@ -86,7 +87,16 @@ With 85% variance, 3 principal components were found in the z-space for the trai
 ### Sparse Regression with Scaling and rCCA on Characteristic Parameters
 ![Ridge Regression on Canonical Components](_images/ridge_regression_cca.png)
 
+
 *Fig. 6:  Ridge Regression on Canonical Components of Characteristic Parameters of EEG and EMG*
+Figure 6 is the result of scaling the input and output datasets, applying regularized CCA and fitting a ridge regression model to them. The input and output datasets consisted of time series wavedata that had been pre-processed using the neuromechanical model to yield characteristic parameters of EEG and EMG data.
+First, We used the results of cross validation shown in Figure 1 to determine the optimal number of latent dimensions. Another round of cross validation was performed to determine the optimal regularization coefficient for regularized CCA. This was found to be 0.2.
+
+The input and output data were normalized using Z-score normalization. Then, an rCCA model with latent dimensions = 1 and regularization coefficient = 0.2 was fit to the data. X (204, 4) and Y(204, 8) were transformed into U (204, 1) and V(204, 1). Data was split into training and testing sets using an 80/20 split. Finally, the ridge regression model was fit to the transformed data.
+
+The results of using ridge regression on the scaled and transformed data were much better than that of basic regression on non-scaled data. Z-score normalization brings all the input features to a similar scale thereby preventing any one feature from dominating due to its larger scale. The use of a smaller regularization coefficient also seemed to yield better results. It is possible that the use of a regularization coefficient of 1 in our earlier model led to underfitting. 
+
+The RMSE value for this model was 0.65 and the R2-score for the canonical prediction was 0.46. The R2-score for the canonical predictions converted back into X-space was 0.0637, and the RMSE was 0.9751. These values can be explained by the weak correlation between the features of our dataset. Additionally, having to predict eight features using a four dimensional input likely led the model to overgeneralize.
 ### Sparse Regression with rCCA on Wavedata
 ![Cross validation ](_images/wave_vis.png)
 
@@ -118,11 +128,29 @@ From the metrics, we found that the R2 score from the RNN was 0.318225 and the R
 
 
 ## Evaluation and Model Comparison
-![Overall Model Metrics](_images/Model_Metrics.jpg)
-*Fig. 8: Ridge Regression on Canonical Components of Wavedata*
+![Input Correlations](_images/input_corrs.png)
+
+*Fig 10: Correlation matrix for input features*
+
+![Output Correlations](_images/output_corrs.png)
+
+*Fig 11: Correlation matrix for output features*
+
+![All Features Correlations](_images/input_output_corrs.png)
+
+*Fig 12: Correlation matrix for input and output features*
+
+The above three figures show the correlations between input and out features, just output features and just input features, respectively. There is little correlation between the input and output features as is visible from the last correlation matrix (the first four rows/columns are input features and the rest are output features). This could be one of the reasons why our models failed to make good predictions. In the future, we could potentially attempt to increase correlation by experimenting with polynomial features and other feature engineering techniques. 
+
+![Feedforward Loss](_images/model_comps.png)
+
+*Fig 13: Table comparing metrics for the implemented models*
+
 For rCCA with multiple linear regression, R2  score was higher and RMSE was lower in the canonical space. But upon converting to XY-space  R2  score dropped and RMSE rose. PCA with multiple linear regression resulted in a higher R2  score than rCCA, but yielded a higher RMSE value. The R2  score was still relatively low, but this can likely be explained by the weak correlation between input features and output features in our dataset. It is also possible that the multiple linear regression model was too complex, and overfitting to our training data, especially considering that our dataset was relatively small. To address these issues, we also implemented a sparse regression model.
 
-For the sparse regression models that used rCCA as a preprocessing technique, R2  score was typically high for predictions made in canonical space. However, when these were converted back into XY-space, it dropped significantly. The RMSE also tended to increase when predictions were converted. We suspect that this is because of issues with how we were converting our predictions back into XY-space. After implementing rCCA without scaling the data, we noticed that the canonical weights matrix had some very small numbers, and thereby gave very little weight to some features. Therefore, when we implemented sparse regression on the characteristic parameters, we used z-score normalization to ensure all the features would be weighted equally. This gave us better results in terms of R2 score for the canonical components. However, upon converting back to XY-space, it once again dropped. We then tried running rCCA and ridge regression on the raw wavedata to see if this would capture more detail. This model gave us the highest R2 score for canonical components of all the models that used rCCA. However, once again, upon converting back, it dropped. For this model it dropped to a large negative number, indicating that the model was making predictions that were worse than simply predicting the average of the function for any given test point. We suspected that this was because using 1 latent dimension to capture the relationships in our data led to underfitting. So, we tried experimenting with larger numbers of latent dimensions. Unexpectedly, this resulted in higher RMSE values and lower R2 scores. Another cause could have been the lack of data. The neuromechanical model dataset contained 208 datapoints while the wave dataset contained 107 datapoints. We plan on experimenting with wavelet transforms and different dimensionality reduction techniques in the future. 
+For the sparse regression models that used rCCA as a preprocessing technique, R2  score was typically high for predictions made in canonical space. However, when these were converted back into XY-space, it dropped significantly. The RMSE also tended to increase when predictions were converted. We suspect that this is because of issues with how we were converting our predictions back into XY-space. After implementing rCCA without scaling the data, we noticed that the canonical weights matrix had some very small numbers, and thereby gave very little weight to some features. Therefore, when we implemented sparse regression on the characteristic parameters, we used z-score normalization to ensure all the features would be weighted equally. This gave us better results in terms of R2 score for the canonical components. 
+
+However, upon converting back to XY-space, it once again dropped. We then tried running rCCA and ridge regression on the raw wavedata to see if this would capture more detail. This model gave us the highest R2 score for canonical components of all the models that used rCCA. However, once again, upon converting back, it dropped. For this model it dropped to a large negative number, indicating that the model was making predictions that were worse than simply predicting the average of the function for any given test point. We suspected that this was because using 1 latent dimension to capture the relationships in our data led to underfitting. So, we tried experimenting with larger numbers of latent dimensions. Unexpectedly, this resulted in higher RMSE values and lower R2 scores. Another cause could have been the lack of data. The neuromechanical model dataset contained 208 datapoints while the wave dataset contained 107 datapoints. We plan on experimenting with wavelet transforms and different dimensionality reduction techniques in the future. 
 
 The implementation of the neural network showed that it had a higher level of predicting power than MLR and Sparse Regression because of the differences between the RMSE and the R2 score. This is likely due to its ability to capture more complex relationships than simple regression. The regression models that were implemented were only capable of capturing linear relationships, but neural networks seek to introduce nonlinearity with the use of activation functions. Neural networks would also be a good place to start if we decide to reframe our problem as a classification one instead of regression.
 
@@ -145,4 +173,8 @@ We can ensure model validation and testing through k-fold cross-validation, trac
 ## Contribution Table and Gantt Chart
 [Click Here to View Gantt Chart](https://docs.google.com/spreadsheets/d/1LJo-kXLj1V64y5hSA2eHDMiAgkj5vY8V2jxa6E2smUs/edit?gid=0#gid=0)
 
+<<<<<<< HEAD
 ![Final Contributions](_images/Final_Contributions.jpg)
+=======
+<img src="_images/Final_Contributions.jpg" alt="Final Contribution">
+>>>>>>> 305e2f1f351c7530291ee7822b80ec300d64d049
