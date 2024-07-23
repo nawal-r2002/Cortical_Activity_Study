@@ -179,6 +179,8 @@ We can ensure model validation and testing through k-fold cross-validation, trac
 
 [4] A. Mihalik et al., “Canonical Correlation Analysis and Partial Least Squares for Identifying Brain–Behavior Associations: A Tutorial and a Comparative Study,” Biological Psychiatry: Cognitive Neuroscience and Neuroimaging, vol. 7, no. 11, pp. 1055–1067, Nov. 2022, doi: https://doi.org/10.1016/j.bpsc.2022.07.012.
 
+[5] G. Gordon, R. Tibshirani. Machine Learning 10-725. Class Lecture, Topic: “Lecture 2: Optimization”. School of Computer Science, Carnegie Mellon, Pittsburgh PA, Aug. 30, 2012.
+
 ## Contribution Table and Gantt Chart
 [Click Here to View Gantt Chart](https://docs.google.com/spreadsheets/d/1LJo-kXLj1V64y5hSA2eHDMiAgkj5vY8V2jxa6E2smUs/edit?gid=0#gid=0)
 
