@@ -84,7 +84,13 @@ With 85% variance, 3 principal components were found in the z-space for the trai
 ### Sparse Regression with Scaling and rCCA on Characteristic Parameters
 ![Ridge Regression on Canonical Components](_images/ridge_regression_cca.png)
 
-*Fig. 6:  Ridge Regression on Canonical Components of Characteristic Parameters of EEG and EMG*
+
+*Fig. 6:  Ridge Regression on Canonical Components of Characteristic Parameters of EEG and EMG
+Figure 6 is the result of scaling the input and output datasets, applying regularized CCA and fitting a ridge regression model to them. The input and output datasets consisted of time series wavedata that had been pre-processed using the neuromechanical model to yield characteristic parameters of EEG and EMG data.
+First, We used the results of cross validation shown in Figure 1 to determine the optimal number of latent dimensions. Another round of cross validation was performed to determine the optimal regularization coefficient for regularized CCA. This was found to be 0.2.
+	The input and output data were normalized using Z-score normalization. Then, an rCCA model with latent dimensions = 1 and regularization coefficient = 0.2 was fit to the data. X (204, 4) and Y(204, 8) were transformed into U (204, 1) and V(204, 1). Data was split into training and testing sets using an 80/20 split. Finally, the ridge regression model was fit to the transformed data.
+	The results of using ridge regression on the scaled and transformed data were much better than that of basic regression on non-scaled data. Z-score normalization brings all the input features to a similar scale thereby preventing any one feature from dominating due to its larger scale. The use of a smaller regularization coefficient also seemed to yield better results. It is possible that the use of a regularization coefficient of 1 in our earlier model led to underfitting. 
+The RMSE value for this model was 0.65 and the R2-score for the canonical prediction was 0.46. The R2-score for the canonical predictions converted back into X-space was 0.0637, and the RMSE was 0.9751. These values can be explained by the weak correlation between the features of our dataset. Additionally, having to predict eight features using a four dimensional input likely led the model to overgeneralize.
 ### Sparse Regression with rCCA on Wavedata
 ![Cross validation ](_images/wave_vis.png)
 
