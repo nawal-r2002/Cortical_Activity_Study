@@ -103,6 +103,7 @@ Figure 8 shows the result of fitting a ridge regression model to the canonical c
 The negative R2 score can likely be explained by the large loss of dimensionality when attempting to reduce 200 dimensions to 1 latent dimension. The wavedata likely also had a large amount of noise leading to a weak correlation between the input and the output.
 
 ### Feedforward Neural Network
+![Feedforward Loss](_images/FeedforwardLoss.png)
 
 ### Recurrent Neural Network
 
