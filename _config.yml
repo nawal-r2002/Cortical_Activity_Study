@@ -21,7 +21,7 @@
 title: Analyzing Cortical N1 Activity in Relations to Muscle Activity in Old Adults
 name: Nawal Reza
 # baseurl: "/CS4641Project" # the subpath of your site, e.g. /blog
-url: "https://nawal-r2002.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://nawal-r2002.github.io/Cortical_Relations_Study/" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 theme: minima
